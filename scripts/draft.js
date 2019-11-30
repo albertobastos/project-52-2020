@@ -1,6 +1,6 @@
 // Sorteo de la rotación para proponer temas
 
-const authors = require('./authors.json');
+const authors = require('../src/data/authors.json');
 
 const names = Object.values(authors);
 
