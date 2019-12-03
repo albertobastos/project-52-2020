@@ -1,0 +1,26 @@
+{
+  "authors": {
+    "andres": "Andrés",
+    "josep": "Josep",
+    "miquel": "Miquel",
+    "meri": "Meri",
+    "felipe": "Felipe",
+    "xisco": "Xisco",
+    "alberto": "Alberto",
+    "ivan": "Iván"
+  },
+  "weeks": [
+    {
+      "topic": "Tema de la semana",
+      "author": "andres",
+      "andres": "http://...",
+      "alberto": "http://..."
+    },
+    {
+      "topic": "Tema de la semana",
+      "author": "alberto",
+      "meri": "http://...",
+      "felipe": "http://..."
+    }
+  ]
+}
