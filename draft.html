@@ -1,0 +1,58 @@
+<html>
+    <head>
+        <title>P52-2020 Draft</title>
+        <style type="text/css">
+          body { font-size: 2em; }
+          ul { list-style-type: none; padding-left: 0; }
+          li { margin: 0; }
+        </style>
+        <script src="js/ext/moment.min.js"></script>
+        <script src="js/ext/vue.js"></script>
+    </head>
+    <body>
+        <div id="app">Loading...</div>       
+        <script>
+          var app = new Vue({ 
+            el: '#app',
+            data: {
+              result: []
+            },
+            template: `
+              <div>
+                <ul>
+                  <li v-for="item in result">{{item.date}}: {{item.name}}</li>
+                </ul>
+              </div>`
+          });
+
+          getData(function(err, data) {
+            let authors = Object.values(data.authors);
+            //for(let i=0;i<100;i++) authors = authors.sort((a, b) => .5 - Math.random());
+            let first = moment("2019-12-29");
+            let result = authors.map(function(name, index) {
+              let date = moment(first).add(index, 'week');
+              return { name: name, date: date.format('DD/MM/YYYY') };
+            });
+            app.result = result;
+          });
+
+          function getData(callback) {
+            let request = new XMLHttpRequest();
+            request.open('GET', './data.json', true);
+            request.onerror = function() {
+              let err = new Error('Error during data retrieval.');
+              callback(err);
+            }
+            request.onload = function() {
+              if(request.status >= 200 && request.status < 400) {
+                callback(null, JSON.parse(request.responseText));
+              } else {
+                let err = new Error('Unexpected HTTP status retrieving data: ' + request.status);
+                callback(err);
+              }
+            }
+            request.send();
+          }
+        </script>
+    </body>
+</html>
