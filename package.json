@@ -5,7 +5,7 @@
   "main": "index.js",
   "scripts": {
     "draft": "node scripts/draft.js",
-    "serve": "http-server src -p 8080"
+    "serve": "http-server web -p 8080"
   },
   "repository": {
     "type": "git",
