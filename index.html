@@ -1,8 +1,14 @@
 <html>
     <head>
         <style type="text/css">
-body { font-size: 1.5em; }
-.no-photo { color: red; }
+          body { font-family: Arial; }
+          .no-photo { color: red; }
+          .week-container { display: flex; flex-direction: row; align-content: stretch; margin-top: .5em; align-items: stretch; }
+          .week-info { border: 1px solid #000; padding: 1em; width: 300px; }
+          .week-item { display: flex; align-items: center; justify-content: center; width: 100px; border: 1px dashed #000; padding: 1em; margin-left: .5em; background-color: #eeb4b4; text-transform: uppercase;}
+          .week-item.filled { background-color: lightgreen; }
+          .week-item.filled:hover { background-color: white; cursor: grabbing; }
+
         </style>
         <script src="js/ext/moment.min.js"></script>
         <script src="js/ext/vue.js"></script>
@@ -16,18 +22,40 @@ Vue.component('week', {
     data: Object
   },
   template: `
-  <div>
-    <h1>Week #{{data.number}}: {{data.topic}}</h1>
-    <p>Published on {{data.date}}</p>
-    <p>Proposed by {{data.author}}</p>
-    <ul>
-      <li v-for="item in data.items">
-        <a v-if="!!item.url" :href="item.url" target="_blank">{{item.author}}</a>
-        <span v-if="!item.url" class="no-photo">{{item.author}}</a>
-      </li>
-    </ul>
-  </div>
+    <div class="week-container">
+      <week-info v-bind:data="data"></week-info>
+      <week-item v-for="item of data.items" v-bind:item="item" v-bind:key="item.author"></week-item>
+    </div>
   `
+});
+
+Vue.component('week-info', {
+  props: {
+    data: Object
+  },
+  template: `
+    <div class="week-info">
+      <p>#{{data.number}}: <strong>{{data.topic}}</strong></p>
+      <p>Published on <i>{{data.date}}</i></p>
+      <p>Proposed by <i>{{data.author}}</i></p>
+    </div>
+  `
+});
+
+Vue.component('week-item', {
+  props: {
+    item: Object
+  },
+  template: `
+    <div class="week-item" v-bind:class="{ filled: !!item.url }" v-on:click="open()">
+      <span>{{item.author}}</span>
+    </div>
+  `,
+  methods: {
+    open: function() {
+      if(!!this.item.url) window.open(this.item.url);
+    }
+  }
 });
 
 var app = new Vue({ 
@@ -37,6 +65,7 @@ var app = new Vue({
   },
   template: `
 <div>
+  <h1>Project 52/2020</h1>
   <week v-for="week in weeks" v-bind:data="week"></week>
 </div>`
 });
