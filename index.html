@@ -1,12 +1,77 @@
 <html>
     <head>
-        <link rel="stylesheet" href="css/styles.css">
+        <style type="text/css">
+body { font-size: 1.5em; }
+.no-photo { color: red; }
+        </style>
+        <script src="js/ext/moment.min.js"></script>
         <script src="js/ext/vue.js"></script>
     </head>
     <body>
-        
-        <div id="app">Loading...</div>
-        
-        <script src="js/script.js"></script>
+<div id="app">Loading...</div>       
+<script>
+var app = new Vue({ 
+  el: '#app',
+  data: {
+    weeks: []
+  },
+  template: `
+<div>
+  <div v-for="week in weeks">
+    <h1>Week #{{week.number}}: {{week.topic}}</h1>
+    <p>Published on {{week.date}}</p>
+    <p>Proposed by {{week.author}}</p>
+    <ul>
+      <li v-for="item in week.items">
+        <a v-if="!!item.url" :href="item.url">{{item.author}}</a>
+        <span v-if="!item.url" class="no-photo">{{item.author}}</a>
+      </li>
+    </ul>
+  </div>
+</div>`
+});
+
+getData(function(err, data) {
+  const authors = data.authors;
+  const authorKeys = Object.keys(authors);
+  const rawWeeks = data.weeks;
+  const init = moment('2020-01-01');
+  const weeks = rawWeeks.map((week, index) => {
+    const items = authorKeys.map(key => {
+      return {
+        author: authors[key],
+        url: week[key]
+      }
+    });
+    return {
+      number: index+1,
+      topic: week.topic,
+      author: authors[authorKeys[index % authorKeys.length]],
+      date: moment(init).add(index+1, 'weeks').format('DD/MM/YYYY'),
+      items
+    }
+  }).reverse();
+
+  app.weeks = weeks;
+});
+
+function getData(callback) {
+  let request = new XMLHttpRequest();
+  request.open('GET', './data.json', true);
+  request.onerror = function() {
+    let err = new Error('Error during data retrieval.');
+    callback(err);
+  }
+  request.onload = function() {
+    if(request.status >= 200 && request.status < 400) {
+      callback(null, JSON.parse(request.responseText));
+    } else {
+      let err = new Error('Unexpected HTTP status retrieving data: ' + request.status);
+      callback(err);
+    }
+  }
+  request.send();
+}
+</script>
     </body>
 </html>

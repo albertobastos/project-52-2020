@@ -12,13 +12,11 @@
   "weeks": [
     {
       "topic": "Tema de la semana",
-      "author": "andres",
       "andres": "http://...",
       "alberto": "http://..."
     },
     {
       "topic": "Tema de la semana",
-      "author": "alberto",
       "meri": "http://...",
       "felipe": "http://..."
     }
