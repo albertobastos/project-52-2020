@@ -10,6 +10,26 @@ body { font-size: 1.5em; }
     <body>
 <div id="app">Loading...</div>       
 <script>
+
+Vue.component('week', {
+  props: {
+    data: Object
+  },
+  template: `
+  <div>
+    <h1>Week #{{data.number}}: {{data.topic}}</h1>
+    <p>Published on {{data.date}}</p>
+    <p>Proposed by {{data.author}}</p>
+    <ul>
+      <li v-for="item in data.items">
+        <a v-if="!!item.url" :href="item.url" target="_blank">{{item.author}}</a>
+        <span v-if="!item.url" class="no-photo">{{item.author}}</a>
+      </li>
+    </ul>
+  </div>
+  `
+});
+
 var app = new Vue({ 
   el: '#app',
   data: {
@@ -17,17 +37,7 @@ var app = new Vue({
   },
   template: `
 <div>
-  <div v-for="week in weeks">
-    <h1>Week #{{week.number}}: {{week.topic}}</h1>
-    <p>Published on {{week.date}}</p>
-    <p>Proposed by {{week.author}}</p>
-    <ul>
-      <li v-for="item in week.items">
-        <a v-if="!!item.url" :href="item.url">{{item.author}}</a>
-        <span v-if="!item.url" class="no-photo">{{item.author}}</a>
-      </li>
-    </ul>
-  </div>
+  <week v-for="week in weeks" v-bind:data="week"></week>
 </div>`
 });
 
@@ -46,7 +56,7 @@ getData(function(err, data) {
     return {
       number: index+1,
       topic: week.topic,
-      author: authors[authorKeys[index % authorKeys.length]],
+      author: week.author || authors[authorKeys[index % authorKeys.length]],
       date: moment(init).add(index+1, 'weeks').format('DD/MM/YYYY'),
       items
     }

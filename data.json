@@ -12,6 +12,7 @@
   "weeks": [
     {
       "topic": "Tema de la semana",
+      "author": "Autor forzado",
       "andres": "http://...",
       "alberto": "http://..."
     },
