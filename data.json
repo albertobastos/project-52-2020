@@ -11,33 +11,7 @@
   },
   "weeks": [
     {
-      "topic": "Tema",
-      "josep": "http://www.google.es",
-      "felipe": "http://www.google.es",
-      "miquel": "http://www.google.es",
-      "ivan": "http://www.google.es",
-      "meri": "http://www.google.es",
-      "alberto": "http://www.google.es",
-      "xisco": "http://www.google.es",
-      "andres": "http://www.google.es"
-    },
-    {
-      "topic": "Tema"
-    },
-    {
-      "topic": "Tema"
-    },
-    {
-      "topic": "Tema"
-    },
-    {
-      "topic": "Tema"
-    },
-    {
-      "topic": "Tema"
-    },
-    {
-      "topic": "Tema"
+      "topic": "Not yet..."
     }
   ]
 }
