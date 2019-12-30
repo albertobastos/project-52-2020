@@ -38,7 +38,7 @@ Vue.component('week-info', {
   },
   template: `
     <div class="week-info">
-      <p>#{{data.number}} / <strong>{{data.topic}}</strong></p>
+      <p>#{{data.number}}of52 / <strong>{{data.topic}}</strong></p>
       <p>Published: <i>{{data.dateStr}}</i></p>
       <p>Suggested by: <i>{{data.author}}</i></p>
     </div>
@@ -69,7 +69,7 @@ var app = new Vue({
   },
   template: `
 <div class="outer">
-  <h1>Project 52/2020</h1>
+  <h1>Project 52/2020 - #project52</h1>
   <week v-for="week in weeks" :key="week.number" :data="week"></week>
 </div>`
 });
