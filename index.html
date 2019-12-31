@@ -50,14 +50,13 @@ Vue.component('week-item', {
     item: Object
   },
   template: `
-    <a class="week-item" :href="item.url" :class="{ filled: !!item.url }" v-on:click="open(ev)">
+    <a class="week-item" :href="item.url" :class="{ filled: !!item.url }" v-on:click="open">
       {{item.author}}
     </a>
   `,
   methods: {
     open: function(ev) {
       if(!this.item.url) ev.preventDefault();
-      //if(!!this.item.url) window.open(this.item.url);
     }
   }
 });
