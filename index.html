@@ -2,19 +2,17 @@
     <head>
         <meta charset="utf-8" />
         <title>Project 52/2020</title>
-        <style type="text/css">
-          body { font-family: Arial; }
-          a, a:link, a:visited {color: #000;text-decoration: none;}
-          h1 { margin-left: .5em; }
-          .week-container { display: flex; flex-direction: row; align-content: stretch; margin-top: .5em; align-items: stretch;}
-          .week-info { border: 1px solid #000; padding: 1em; width: 220px; text-align: right; }
-          .week-info strong { text-transform: uppercase; }
-          .week-item { display: flex; align-items: center; justify-content: center; width: 100px; border: 1px dashed #000; padding: 1em; margin-left: .5em; background-color: #ffdbdb; text-transform: uppercase;}
-          .week-item.filled { background-color: #006600; color: #fff; }
-          .week-item.filled:hover { background-color: fff; color: #000; font-weight: bold; cursor: grabbing; }
-        </style>
+        <link href="styles.css" rel="stylesheet" />
         <script src="js/ext/moment.min.js"></script>
         <script src="js/ext/vue.min.js"></script>
+          <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+
     </head>
     <body>
 <div id="app">Loading...</div>       
@@ -73,7 +71,30 @@ var app = new Vue({
 </div>`
 });
 
-getData(function(err, data) {
+// Your web app's Firebase configuration
+var firebaseConfig = {
+  apiKey: "AIzaSyAk2hB67Df0Xcq2HvXJGcmht0QZTtLp5OQ",
+  authDomain: "weeks-f9bd8.firebaseapp.com",
+  databaseURL: "https://weeks-f9bd8.firebaseio.com",
+  projectId: "weeks-f9bd8",
+  storageBucket: "weeks-f9bd8.appspot.com",
+  messagingSenderId: "870989957053",
+  appId: "1:870989957053:web:2c37444d4b6cb721e074d4",
+  measurementId: "G-849LEETYHW"
+};
+// Initialize Firebase
+firebase.initializeApp(firebaseConfig);
+
+function getFirebaseData(callback) {
+  var database = firebase.database();
+
+  database.ref('/').once('value').then(function(snapshot) {
+    const authors = (snapshot.val() && snapshot.val()) || 'Anonymous';
+    callback(null, authors)
+  });
+};
+
+getFirebaseData(function(err, data) {
   const authors = data.authors;
   const authorKeys = Object.keys(authors);
   const rawWeeks = data.weeks;
@@ -97,24 +118,6 @@ getData(function(err, data) {
 
   app.weeks = weeks;
 });
-
-function getData(callback) {
-  let request = new XMLHttpRequest();
-  request.open('GET', './data.json', true);
-  request.onerror = function() {
-    let err = new Error('Error during data retrieval.');
-    callback(err);
-  }
-  request.onload = function() {
-    if(request.status >= 200 && request.status < 400) {
-      callback(null, JSON.parse(request.responseText));
-    } else {
-      let err = new Error('Unexpected HTTP status retrieving data: ' + request.status);
-      callback(err);
-    }
-  }
-  request.send();
-}
 </script>
     </body>
 </html>

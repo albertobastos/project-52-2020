@@ -1,0 +1,90 @@
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <title>Project 52/2020</title>
+        <link href="styles.css" rel="stylesheet" />
+        <script src="js/ext/moment.min.js"></script>
+        <script src="js/ext/vue.min.js"></script>
+          <!-- The core Firebase JS SDK is always required and must be listed first -->
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-app.js"></script>
+
+        <!-- TODO: Add SDKs for Firebase products that you want to use
+            https://firebase.google.com/docs/web/setup#available-libraries -->
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+
+    </head>
+    <body>
+<div id="app">Loading...</div>       
+<script>
+    var app = new Vue({ 
+    el: '#app',
+    data: {
+        authors: [],
+        weeks: [],
+        topic: null,
+    },
+    methods: {
+        save: function(e) {
+            Object.keys(this.authors).forEach(a => this.authors[a] = "");
+
+            this.weeks.push({
+                ...this.authors,
+                topic: this.topic,
+            });
+            saveOnFirebase(this.weeks);
+            alert("Yeah!! Ya queda una foto menos :D");
+            location.href = '/';
+        }
+    },
+    template: `
+    <div class="outer">
+    <h1>Project 52/2020 - #project52</h1>
+    <form v-on:submit.stop.prevent="save">        
+        <fieldset>
+            <h3>Tema de la nueva semana</h3>
+            <input type="text" placeholder="Introduce el tema aquí" v-model="topic" />
+        </fieldset>
+        <fieldset>
+            <input type="submit" value="Enviar" />
+        </fieldset>
+        </form>
+    </div>`
+    });
+
+    // Your web app's Firebase configuration
+    var firebaseConfig = {
+    apiKey: "AIzaSyAk2hB67Df0Xcq2HvXJGcmht0QZTtLp5OQ",
+    authDomain: "weeks-f9bd8.firebaseapp.com",
+    databaseURL: "https://weeks-f9bd8.firebaseio.com",
+    projectId: "weeks-f9bd8",
+    storageBucket: "weeks-f9bd8.appspot.com",
+    messagingSenderId: "870989957053",
+    appId: "1:870989957053:web:2c37444d4b6cb721e074d4",
+    measurementId: "G-849LEETYHW"
+    };
+    // Initialize Firebase
+    firebase.initializeApp(firebaseConfig);
+    var database = firebase.database();
+
+    function getFirebaseData(callback) {
+        database.ref('/').once('value').then(function(snapshot) {
+            const data = (snapshot.val() && snapshot.val()) || 'Anonymous';
+            callback(null, data)
+        });
+    };
+
+    function saveOnFirebase(weeks) {
+        database.ref('/week')
+        firebase.database().ref('weeks').set(weeks);
+    }
+
+    let weeks = [];
+    getFirebaseData(function(err, data) {
+        console.log("DATA", data, Object.keys(data.authors))
+        app.authors = data.authors;
+        app.weeks = data.weeks;
+    });
+</script>
+    </body>
+</html>
