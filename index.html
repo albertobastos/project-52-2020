@@ -74,10 +74,11 @@ var app = new Vue({
 </div>`
 });
 
+const authorsOrder = [ "josep", "felipe", "miquel", "ivan", "meri", "alberto", "xisco", "andres", "isa"];
 
 getFirebaseData(function(err, data) {
   const authors = data.authors;
-  const authorKeys = Object.keys(authors);
+  const authorKeys = authorsOrder;  
   const rawWeeks = data.weeks;
   const init = moment('2020-01-01');
   const weeks = rawWeeks.map((week, index) => {
