@@ -12,6 +12,9 @@
             https://firebase.google.com/docs/web/setup#available-libraries -->
         <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-analytics.js"></script>
         <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-database.js"></script>
+        <script src="https://www.gstatic.com/firebasejs/7.6.1/firebase-storage.js"></script>
+
+        <script src="firebase.js"></script>
 
     </head>
     <body>
@@ -71,28 +74,6 @@ var app = new Vue({
 </div>`
 });
 
-// Your web app's Firebase configuration
-var firebaseConfig = {
-  apiKey: "AIzaSyAk2hB67Df0Xcq2HvXJGcmht0QZTtLp5OQ",
-  authDomain: "weeks-f9bd8.firebaseapp.com",
-  databaseURL: "https://weeks-f9bd8.firebaseio.com",
-  projectId: "weeks-f9bd8",
-  storageBucket: "weeks-f9bd8.appspot.com",
-  messagingSenderId: "870989957053",
-  appId: "1:870989957053:web:2c37444d4b6cb721e074d4",
-  measurementId: "G-849LEETYHW"
-};
-// Initialize Firebase
-firebase.initializeApp(firebaseConfig);
-
-function getFirebaseData(callback) {
-  var database = firebase.database();
-
-  database.ref('/').once('value').then(function(snapshot) {
-    const authors = (snapshot.val() && snapshot.val()) || 'Anonymous';
-    callback(null, authors)
-  });
-};
 
 getFirebaseData(function(err, data) {
   const authors = data.authors;
