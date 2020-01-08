@@ -33,7 +33,7 @@ function storageBackupOnFirebase(json) {
 
     var storageRef = storage.ref().child(filename);
     storageRef.putString(JSON.stringify(json)).then(function(snapshot) {
-        location.href="project-52-2020/";
+        location.href="/project-52-2020/";
         alert("Yeah!! Ya queda una foto menos :D");
      });
 }
