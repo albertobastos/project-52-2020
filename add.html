@@ -26,7 +26,13 @@
         weeks: [],
         author: -1,
         link: null,
-        actualWeek: null
+        actualWeek: null,
+        hasLink: false,
+        prevLink: null,
+    },
+    updated: function() {
+        this.prevLink = this.weeks[this.actualWeek][this.author] || null;
+        this.hasLink = !!this.prevLink;
     },
     methods: {
         save: function(e) {
@@ -56,6 +62,10 @@
         <fieldset v-if="author !== -1 && actualWeek !== null">
             <h3>Introduce la URL de tu foto</h3>
             <input type="text" placeholder="http://...." v-model="link" />
+            <div v-if="hasLink" class="alert">
+                <p>Ojo! Ya existe un link para esta semana.</p>
+                <p><a href="{{prevLink}}">{{prevLink}}</a></p>
+            </div>
         </fieldset>
         <fieldset v-if="author !== -1 && link !== null">
             <input type="submit" value="Enviar" />

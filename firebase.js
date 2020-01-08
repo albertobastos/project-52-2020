@@ -17,7 +17,7 @@ var storage = firebase.storage();
 
 
 function getFirebaseData(callback) {
-    database.ref('/').once('value').then(function(snapshot) {
+    database.ref('/').on('value', function(snapshot) {
         const data = (snapshot.val() && snapshot.val()) || 'Anonymous';
         callback(null, data)
     });
@@ -33,7 +33,7 @@ function storageBackupOnFirebase(json) {
 
     var storageRef = storage.ref().child(filename);
     storageRef.putString(JSON.stringify(json)).then(function(snapshot) {
-        location.href="/";
+        location.href="project-52-2020/";
         alert("Yeah!! Ya queda una foto menos :D");
      });
 }

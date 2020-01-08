@@ -10,3 +10,4 @@ h1 { margin-left: .5em; text-align:center; }
 .week-item { display: flex; align-items: center; justify-content: center; width: 100px; border: 1px dashed #000; padding: 1em; margin-left: .5em; background-color: #ffdbdb; text-transform: uppercase;}
 .week-item.filled { background-color: #006600; color: #fff; }
 .week-item.filled:hover { background-color: fff; color: #000; font-weight: bold; cursor: grabbing; }
+div.alert {color: red;font-size: 0.8em;}
