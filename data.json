@@ -8,20 +8,22 @@
     "alberto": "Alberto",
     "xisco": "Xisco",
     "andres": "Andrés",
-    "isa": "Isa"
+    "isa": "Isa",
+    "logedo": "Juanca"
   },
   "weeks": [
     {
       "topic": "Celestial symmetry",
-      "josep": "",
-      "felipe": "",
-      "miquel": "",
-      "ivan": "",
-      "meri": "",
-      "alberto": "",
-      "xisco": "",
-      "andres": "",
-      "isa": ""
+      "josep": "https://500px.com/photo/1008805658/IMG-8327-jpg-by-Josep-Oliver?ctx_page=1&from=user&user_id=23028943",
+      "felipe": "https://flic.kr/p/2ibFhG5",
+      "miquel": "http://miquelfrontera.com/simetria-celetial/",
+      "ivan": "https://web.500px.com/photo/1008925233/2-jpg-by-Iv%C3%A1n-Vidal-Palmer/",
+      "meri": "https://www.flickr.com/photos/186352136@N05/49350903752/in/dateposted-public/",
+      "alberto": "https://500px.com/photo/1008887109/1-52-Celestial-symmetry-by-Alberto-Bastos",
+      "xisco": "https://web.500px.com/photo/1008887626/1-52-Simetr%C3%ADa-Celestial-by-Xisco-Bibiloni-Afanador/",
+      "andres": "https://web.500px.com/photo/1008866900/1-52-Simetr%C3%ADa-Celestial-by-Andr%C3%A9s-Nieto-Porras/",
+      "isa": "https://www.instagram.com/p/B7B1TSHIHWK/?igshid=213zb3wwjd38",
+      "juanca": ""
     },
     {
       "topic": "Indoor macro",
@@ -33,7 +35,8 @@
       "alberto": "",
       "xisco": "",
       "andres": "",
-      "isa": ""
+      "isa": "",
+      "juanca": ""
     }
   ]
 }
