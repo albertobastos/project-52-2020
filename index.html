@@ -51,15 +51,10 @@ Vue.component('week-item', {
     item: Object
   },
   template: `
-    <a class="week-item" :href="item.url" :class="{ filled: !!item.url }" v-on:click="open">
+    <a class="week-item" :href="item.url || 'add.html?author=' + item.author + '&week=' + item.week" :class="{ filled: !!item.url }">
       {{item.author}}
     </a>
-  `,
-  methods: {
-    open: function(ev) {
-      if(!this.item.url) ev.preventDefault();
-    }
-  }
+  `
 });
 
 var app = new Vue({ 
@@ -85,7 +80,8 @@ getFirebaseData(function(err, data) {
     const items = authorKeys.map(key => {
       return {
         author: authors[key],
-        url: week[key]
+        url: week[key],
+        week: index
       }
     });
     const date = moment(init).add(index+1, 'weeks');

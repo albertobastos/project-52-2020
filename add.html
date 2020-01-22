@@ -31,6 +31,14 @@
         prevLink: null,
     },
     updated: function() {
+        const queryString = window.location.search;
+        const urlParams = new URLSearchParams(queryString);
+        const paramAuthor = urlParams.get('author').toLowerCase();
+        const paramWeek = urlParams.get('week');
+
+        if (paramAuthor) this.author = paramAuthor;
+        if (paramWeek) this.actualWeek = paramWeek;
+
         this.prevLink = this.weeks[this.actualWeek][this.author] || null;
         this.hasLink = !!this.prevLink;
     },
