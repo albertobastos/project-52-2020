@@ -51,7 +51,7 @@ Vue.component('week-item', {
     item: Object
   },
   template: `
-    <a class="week-item" :href="item.url || 'add.html?author=' + item.author + '&week=' + item.week" :class="{ filled: !!item.url }">
+    <a class="week-item" :href="item.url" :class="{ filled: !!item.url }">
       {{item.author}}
     </a>
   `
